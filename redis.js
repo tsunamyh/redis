@@ -7,11 +7,9 @@ const port = 4000;
 let isArray = function(a) {
     return (!!a) && (a.constructor === Array);
 };
-client.connect().then(() => {
-    console.log('Redis client connected');
-})
 
 app.get('/data/:searchtext', async (req, res) => {
+    await client.connect()
     const searchtext = req.params.searchtext;
     client.on('error', (err) => console.log('Redis Client Error:::::'));
     console.log("searchtext: ", searchtext);
@@ -35,6 +33,7 @@ app.get('/data/:searchtext', async (req, res) => {
             data: data
         });
     }
+    await client.quit();
 })
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
