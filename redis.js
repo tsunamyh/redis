@@ -19,7 +19,7 @@ app.get('/data/:searchtext', async (req, res) => {
     if (isArray(value)) {
         console.log('Redis Cache Hit');
         res.json({
-            message: 'Redis Cache Hit',
+            message: `Data for ${searchtext} from the Redis Cache`,
             data: value
         });
     } else {
